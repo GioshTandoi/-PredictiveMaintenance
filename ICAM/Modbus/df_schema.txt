@@ -1,0 +1,11 @@
+schema = {'col_1': 1544841854.76, 'Z-8NTC': 'Z-8NTC', 'Z8NTC_Temp1_sign': 0,
+          'Z8NTC_Temp1': 148, 'Z8NTC_Temp2_sign': 0, 'Z8NTC_Temp2': 143, 'Z8NTC_Temp3_sign': 0, 'Z8NTC_Temp3': 145,
+          'IMU_1': 'IMU_1', 'IMU_1_Temp': 1523, 'IMU_1_AccX': 64563, 'IMU_1_AccY': 10, 'IMU_1_AccZ': 5,
+          'IMU_1_DpsX': 57028, 'IMU_1_DpsY': 1557, 'IMU_1_DpsZ': 857, 'IMU_2': 'IMU_2', 'IMU_2_Temp': 1523, 'IMU_2_AccX': 64563,
+          'IMU_2_AccY': 10, 'IMU_2_AccZ': 5, 'IMU_2_DpsX': 57028, 'IMU_2_DpsY': 1557, 'IMU_2_DpsZ': 857, 'NT50': 'NT50',
+          'NT50_Slope_long': 64767, 'NT50_Slope_lateral': 23774}
+
+schema = {'timestamp', 'Z-8NTC','Z8NTC_Temp1_sign', 'Z8NTC_Temp1', 'Z8NTC_Temp2_sign', 'Z8NTC_Temp2', 'Z8NTC_Temp3_sign',
+ 'Z8NTC_Temp3','IMU_1','IMU_1_Temp', 'IMU_1_AccX', 'IMU_1_AccY', 'IMU_1_AccZ','IMU_1_DpsX', 'IMU_1_DpsY', 'IMU_1_DpsZ',
+ 'IMU_2', 'IMU_2_Temp', 'IMU_2_AccX', 'IMU_2_AccY', 'IMU_2_AccZ', 'IMU_2_DpsX', 'IMU_2_DpsY', 'IMU_2_DpsZ', 'NT50',
+'NT50_Slope_long', 'NT50_Slope_lateral'}

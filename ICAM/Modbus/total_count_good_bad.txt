@@ -1,0 +1,2 @@
+'Number of passed files: 2\nNumber of not passed files: 0'
+'Number of passed files: 19980           Number of not passed files: 80'

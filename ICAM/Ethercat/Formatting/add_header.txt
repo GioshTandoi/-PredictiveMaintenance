@@ -1,0 +1,38 @@
+"""from collections import OrderedDict
+import csv
+
+ordered_fieldnames = OrderedDict([('MachineInRun',None),('XDiagnosis',None),('XActualPosition', None),
+                                  ('XVelocityFeedbackValue', None),('YDiagnosis', None),('YActualPosition', None),
+                                  ('YActualCurrent', None),('YVelocityFeedbackValue', None),('YPositionFeedback1Value', None),
+                                  ('ZEncoder_Counter', None), ('FenceUpDiagnosis', None), ('FenceUpActualPosition', None),
+                                  ('FenceUpVelocityFeedbackValue', None),('FenceDownDiagnosis', None),
+                                  ('FenceDownActualPosition', None), ('FenceDownVelocityFeedbackValue', None),
+                                  ('YResistiveLoad',None), ('XThermalLoad',None),('XResistiveLoad', None),('ZFrequencyMonitor', None),
+                                  ('ZCurrentMonitor', None), ('ZVoltageMonitor', None), ('XActualCurrent', None), ('ZFaultMonitor', None),
+                                  ('FenceUpActualCurrent', None), ('YDCBusVoltage', None), ('FenceDownActualCurrent', None),
+                                  ('YThermalLoad', None), ('TFrequencyMonitor', None), ('TCurrentMonitor', None),
+                                  ('TVoltageMonitor', None), ('TFaultMonitor', None), ('Slot2DoorMFeedBack1', None),
+                                  ('Slot2DoorMFeedBack2', None), ('Slot2DoorMFeedBack3', None), ('Slot2DoorMFeedBack4', None),
+                                  ('Slot2DoorMFeedBack5', None), ('Slot2DoorMFeedBack6', None),('Slot2DoorMFeedBack7', None),
+                                  ('Slot2DoorMFeedBack8', None),('ColumnCenteringSide1Pos', None),
+                                  ('ColumnCenteringSide1Neg', None),('ColumnCenteringSide2Pos', None),
+                                  ('ColumnCenteringSide2Neg', None),
+                                  ('XDCBusVoltage', None),
+                                  ('AxisTilting_LimitSwitch', None),
+                                  ('PresenceInCell_OnBoard', None),
+                                  ('Slot2DoorOpenCh1', None),
+                                  ('Slot2DoorOpenCh2', None),
+                                  ('YZAxis', None),
+                                  ('TrayAlignment', None),
+                                  ('Xaxis', None),
+                                  ('RowColumnPresence', None),
+                                  ('Various1', None),
+                                  ('date', None),
+                                  ('timestamp', None)])
+        
+with open(r'C:\Users\exprivia\Desktop\DF\ICAM\Dati_Rielaborati\MasterData\06-03-2019DATA\Trial Append\joint_full_dataset.csv','wb') as fou:
+    dw = csv.DictWriter(fou, delimiter=',', fieldnames=ordered_fieldnames)
+    dw.writeheader()
+    
+#result = pd.concat(frames)
+#result.to_csv(r"C:\Users\exprivia\Desktop\DF\ICAM-20190305T135554Z-001\ICAM\Dati_Rielaborati\MasterData\06-03-2019DATA\Trial Round3\joint_full_dataset.csv", sep=',', index=False)"""
