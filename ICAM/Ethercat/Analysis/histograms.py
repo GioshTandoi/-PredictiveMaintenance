@@ -26,13 +26,13 @@ new_df_X = new_df[is_moving_X]
 """n, bins, patches = plt.hist(x=new_df_Z['spread1'], bins='auto', color='#0504aa',
                             alpha=0.7, rwidth=0.85)"""
 plt.figure(chunk_n)
-plt.hist(abs(new_df_Z['spread1']), bins='auto', alpha=0.5, label='moving_in_Z')
-plt.hist(abs(new_df_Y['spread1']), bins='auto', alpha=0.5, label='moving_in_Y')
-plt.hist(abs(new_df_X['spread1']), bins='auto', alpha=0.5, label='moving_in_X')
+plt.hist(new_df_Z['spread1'], bins='auto', alpha=0.5, label='moving_in_Z')
+plt.hist(new_df_Y['spread1'], bins='auto', alpha=0.5, label='moving_in_Y')
+plt.hist(new_df_X['spread1'], bins='auto', alpha=0.5, label='moving_in_X')
 plt.grid(axis='y', alpha=0.75)
 plt.xlabel('Spread1 (10^-4 mm)')
 plt.ylabel('Frequency')
-plt.title('Abs Spread1 Histogram (chunk '+str(chunk_n)+')')
+plt.title('Spread1 Histogram (chunk '+str(chunk_n)+')')
 plt.legend(loc='upper right')
 plt.show()
 #maxfreq = n.max()
