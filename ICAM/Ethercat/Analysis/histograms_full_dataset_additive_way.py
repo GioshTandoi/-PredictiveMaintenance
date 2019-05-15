@@ -2,6 +2,46 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from operator import add
+import docx
+
+def dataframe_to_word(df, filename):
+    # open an existing document
+    doc = docx.Document(r'C:\Users\exprivia\PycharmProjects\untitled\ICAM\Ethercat\Analysis\\'+filename+'.docx')
+    # add a table to the end and create a reference variable
+    # extra row is so we can add the header row
+    t = doc.add_table(df.shape[0] + 1, df.shape[1])
+    # add the header rows.
+    for j in range(df.shape[-1]):
+        t.cell(0, j).text = df.columns[j]
+    # add the rest of the data frame
+    for i in range(df.shape[0]):
+        for j in range(df.shape[-1]):
+            t.cell(i + 1, j).text = str(df.values[i, j])
+    # save the doc
+    doc.save(r'C:\Users\exprivia\PycharmProjects\untitled\ICAM\Ethercat\Analysis\\'+filename+'.docx')
+
+
+def to_frequency_dataframe(bins2, frequencies):
+    print('++++++++++++++BINS2')
+    print(bins2)
+    print('++++++++++++++frequencies')
+    print(frequencies)
+    columns = ['edge1', 'edge2', 'abs_frequency']
+    df_frequencies = []
+    for j in range(len(bins2)):
+        print(j)
+        if j == len(bins2)-2:
+            interval = bins2[j:]
+            interval.append(frequencies[j])
+            print(interval)
+            df_frequencies.append(interval)
+            break
+        interval = bins2[j:j + 2]
+        interval.append(frequencies[j])
+        print(interval)
+        df_frequencies.append(interval)
+    df_frequencies = pd.DataFrame(data=df_frequencies, columns=columns)
+    return df_frequencies
 
 statistics_spread = pd.read_csv('chunks_statistics_spread.csv')
 min = statistics_spread['min'].values.min()
@@ -79,6 +119,21 @@ print('******************* X_Frequencies *****************')
 print(X_frequencies)
 print('n_rows')
 print(n_rows)
+
+bins1 = bins.tolist()
+print(bins1)
+print(Z_frequencies)
+Z_frequencies_table = to_frequency_dataframe(bins1, Z_frequencies)
+Z_frequencies_table.to_csv('Z_frequencies_table.csv', index=False)
+dataframe_to_word(Z_frequencies_table, 'Z_frequencies_table')
+
+Y_frequencies_table = to_frequency_dataframe(bins1, Y_frequencies)
+Y_frequencies_table.to_csv('Y_frequencies_table.csv', index=False)
+dataframe_to_word(Y_frequencies_table, 'Y_frequencies_table')
+
+X_frequencies_table = to_frequency_dataframe(bins1, X_frequencies)
+X_frequencies_table.to_csv('X_frequencies_table.csv',index=False)
+dataframe_to_word(X_frequencies_table, 'X_frequencies_table')
 
 Z_frequencies.append(0)
 Y_frequencies.append(0)
