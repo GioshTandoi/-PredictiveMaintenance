@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from operator import add
 import docx
 
+
+# Declare functions
 def dataframe_to_word(df, filename):
     # open an existing document
     doc = docx.Document(r'C:\Users\exprivia\PycharmProjects\untitled\ICAM\Ethercat\Analysis\\'+filename+'.docx')
@@ -22,10 +24,6 @@ def dataframe_to_word(df, filename):
 
 
 def to_frequency_dataframe(bins2, frequencies):
-    print('++++++++++++++BINS2')
-    print(bins2)
-    print('++++++++++++++frequencies')
-    print(frequencies)
     columns = ['edge1', 'edge2', 'abs_frequency']
     df_frequencies = []
     for j in range(len(bins2)):
@@ -43,13 +41,16 @@ def to_frequency_dataframe(bins2, frequencies):
     df_frequencies = pd.DataFrame(data=df_frequencies, columns=columns)
     return df_frequencies
 
-statistics_spread = pd.read_csv('chunks_statistics_spread.csv')
-min = statistics_spread['min'].values.min()
-max = statistics_spread['max'].values.max()
 
-bins = np.linspace(min, max, num=200, endpoint=True)
-print(bins)
-chunks_directory = r'C:\Users\exprivia\Desktop\DF\ICAM\Dati_Rielaborati\MasterData\chunks\ethercat_icam_v7_chunk'
+# Declare variables
+statistics_spread = pd.read_csv('chunks_statistics_spread.csv')
+min_spread = statistics_spread['min'].values.min()
+max_spread = statistics_spread['max'].values.max()
+
+bins = np.linspace(min_spread, max_spread, num=200, endpoint=True)
+
+chunks_directory = r'..\Data\chunks\ethercat_icam_v7_chunk'
+
 Z_frequencies = [0] * 199
 Y_frequencies = [0] * 199
 X_frequencies = [0] * 199
@@ -58,8 +59,12 @@ sumZ = 0
 sumY = 0
 sumX = 0
 
+# These variables are not used because I will use them to build the movement model (TODO)
 z_y_x = pd.DataFrame(columns=['is_moving_Z', 'is_moving_Y', 'new_df_X'])
 z_y_x = pd.DataFrame(columns=['zfrequencymonitor', 'yvelocityfeedbackvalue', 'xvelocityfeedbackvalue'])
+
+
+# Loop over the chunks (from 3 to 9) to calculate the frequencies for each bin
 for i in range(2, 9):
     df = pd.read_csv(chunks_directory+str(i+1)+'_events.csv')
     df.sort_values(by=['timestamp_'], inplace=True)
@@ -80,7 +85,6 @@ for i in range(2, 9):
     is_moving_Y = new_df['yvelocityfeedbackvalue'] != 0
     is_moving_X = new_df['xvelocityfeedbackvalue'] != 0
 
-
     new_df_Z = new_df[is_moving_Z]
     new_df_Y = new_df[is_moving_Y]
     new_df_X = new_df[is_moving_X]
@@ -100,29 +104,14 @@ for i in range(2, 9):
     plt.legend(loc='upper right')
     plt.show()
 
-    print('nZ.shape')
-    print(nZ.shape)
-    print('nZ******************************')
-    print(nZ)
-    print('len-----------Z_frequencies')
-    print(len(Z_frequencies))
     Z_frequencies = list(map(add, Z_frequencies, nZ))
     Y_frequencies = list(map(add, Y_frequencies, nY))
     X_frequencies = list(map(add, X_frequencies, nX))
     n_rows = n_rows + len(df['ypositionfeedback1value'].values)
 
-print('******************* Z_Frequencies *****************')
-print(Z_frequencies)
-print('******************* Y_Frequencies *****************')
-print(Y_frequencies)
-print('******************* X_Frequencies *****************')
-print(X_frequencies)
-print('n_rows')
-print(n_rows)
 
+# Write to file (.csv and .docx) the frequencies for each bin, for each axes, as a table
 bins1 = bins.tolist()
-print(bins1)
-print(Z_frequencies)
 Z_frequencies_table = to_frequency_dataframe(bins1, Z_frequencies)
 Z_frequencies_table.to_csv('Z_frequencies_table.csv', index=False)
 dataframe_to_word(Z_frequencies_table, 'Z_frequencies_table')
@@ -135,6 +124,7 @@ X_frequencies_table = to_frequency_dataframe(bins1, X_frequencies)
 X_frequencies_table.to_csv('X_frequencies_table.csv',index=False)
 dataframe_to_word(X_frequencies_table, 'X_frequencies_table')
 
+# Plot the whole histogram
 Z_frequencies.append(0)
 Y_frequencies.append(0)
 X_frequencies.append(0)
@@ -149,6 +139,7 @@ plt.title('Spread1 Histogram (Full Dataset)')
 plt.legend(loc='upper right')
 plt.show()
 
+# Calculate the mean
 mean_Z = sumZ/sum(Z_frequencies)
 mean_Y = sumY/sum(Y_frequencies)
 mean_X = sumX/sum(X_frequencies)
