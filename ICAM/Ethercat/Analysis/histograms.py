@@ -44,3 +44,9 @@ print(binsZ.shape)
 #maxfreq = n.max()
 # Set a clean upper y-axis limit.
 #plt.ylim(ymax=np.ceil(maxfreq / 10) * 10.5 if maxfreq % 10 else maxfreq + 20)
+
+resample = series.resample('Q')
+quarterly_mean_sales = resample.mean()
+print(quarterly_mean_sales.head())
+quarterly_mean_sales.plot()
+pyplot.show()
