@@ -20,7 +20,7 @@ import base64
 import json
 import threading
 import paho.mqtt.client as mqtt
-import urllib2
+import urllib.request
 import ssl
 from uuid import uuid4
 from datetime import datetime

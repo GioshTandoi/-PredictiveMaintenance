@@ -4,8 +4,8 @@ from datetime import datetime
 import ssl
 from collections import OrderedDict
 import time
-from tkinter import *
 import numpy as np
+import datetime
 
 MQTT_IP = 'emq'
 MQTT_PORT = 8883
@@ -49,75 +49,28 @@ client.on_message = on_message
 client.connect(MQTT_IP, MQTT_PORT, 60, bind_address="")
 client.loop_start()
 
+#Peso in kg del vassoio prelevato (Kg)
+kg = 2
+#Di quanti mm affonda per ogni kg prelevato (mm)
+mm_kg = 1
+#Coefficiente di sovraelongazione delle catene
+s = 1
 
+interval_time = 60;
+i = 0
+timestamp = int(time.time())
 
-#########################
-#
-#   CREATE THE GUI
-#
-#########################
-
-
-root = Tk()
-
-Label(root, text="Spread simulator").grid(row=0, column=1, pady=5)
-
-Label(root, text="Kg").grid(row=1, column=0, pady=5)
-text_id = Text(root, height=1, width=10)
-text_id.grid(row=1, column=1, padx=5, pady=5)
-Label(root, text="Peso in kg del vassoio prelevato (Kg)").grid(row=1, column=2, pady=5)
-
-
-Label(root, text="mm_kg").grid(row=2, column=0, pady=5)
-text_speed = Text(root, height=1, width=10)
-text_speed.grid(row=2, column=1, padx=5, pady=5)
-Label(root, text="Di quanti mm affonda per ogni kg prelevato (mm)").grid(row=2, column=2, pady=5)
-
-Label(root, text="s").grid(row=3, column=0, pady=5)
-text_speed = Text(root, height=1, width=10)
-text_speed.grid(row=3, column=1, padx=5, pady=5)
-Label(root, text="Coefficiente di sovraelongazione delle catene").grid(row=3, column=2, pady=5)
-
-Label(root, text="interval").grid(row=4, column=0, pady=5)
-text_speed = Text(root, height=1, width=10)
-text_speed.grid(row=4, column=1, padx=5, pady=5)
-Label(root, text="Intervallo di invio dati (s)").grid(row=4, column=2, pady=5)
-
-btn_start = Button(root)
-btn_start["text"] = "Start"
-btn_start.grid(row=5, column=1, padx=5, pady=5)
-
-btn_start = Button(root)
-btn_start["text"] = "Stop"
-btn_start.grid(row=6, column=1, padx=5, pady=5)
-
-interval_time = 1000;
-
-def task():
-
-    spread = np.random.normal(loc=0.708727, scale=0.192176)
-    print("spread")
-    root.after(interval_time, task)  # reschedule event in 2 seconds
-
-root.after(interval_time, task)
-
-root.mainloop()
-root.destroy()
-
-
-i=0
-timestamp = 1234567890123
-while(True):
-
-
+while(i<100):
     time.sleep(1)
-    timestamp += i
+    timestamp += 60  #add a second
+    date = datetime.datetime.fromtimestamp(timestamp).isoformat()
+    s += 0.01
+    spread = np.random.normal(loc=0.708727, scale=0.192176)
+    spread = spread*s
     print(timestamp)
-
     ordered_obj_to_send = OrderedDict([
-        ("spread", 3.0),
+        ("spread", spread),
         ("timestamp_", timestamp),
-        ("date", "eee")])
+        ("date", date)])
     client.publish(publishTopic, json.dumps(ordered_obj_to_send), qos=2)
     i+=1
-#time.sleep(2)
