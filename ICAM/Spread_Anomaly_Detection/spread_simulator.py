@@ -105,7 +105,6 @@ interval_time = 1000;
 def task():
 
 
-
     print("hello")
     root.after(interval_time, task)  # reschedule event in 2 seconds
 
@@ -127,7 +126,6 @@ while(True):
     ordered_obj_to_send = OrderedDict([
         ("spread", 3.0),
         ("timestamp_", timestamp),
-
         ("date", "eee")])
     client.publish(publishTopic, json.dumps(ordered_obj_to_send), qos=2)
     i+=1
