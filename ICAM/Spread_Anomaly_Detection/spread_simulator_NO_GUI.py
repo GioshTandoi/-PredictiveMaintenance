@@ -15,6 +15,7 @@ password = "spread_ICAM"
 deviceType = "spread_ICAM"
 version = "v1"
 
+
 def on_connect(client, userdata, flags, rc):
     """0: Connection successful
     1: Connection refused - incorrect protocol version
@@ -60,11 +61,11 @@ interval_time = 60;
 i = 0
 timestamp = int(time.time())
 
-while(i<100):
+while(i<100000):
     time.sleep(1)
     timestamp += 60  #add a second
     date = datetime.datetime.fromtimestamp(timestamp).isoformat()
-    s += 0.01
+    s += 0.001
     spread = np.random.normal(loc=0.708727, scale=0.192176)
     spread = spread*s
     print(timestamp)
